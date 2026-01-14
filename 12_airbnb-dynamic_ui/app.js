@@ -1,0 +1,43 @@
+
+const http=require('http');
+const express=require('express');
+const path=require('path');
+ const userRouter=require('./routes/userRoute');
+ const {hostRouter}=require('./routes/hostRouter');
+
+
+const app=express();
+
+
+// Set EJS as templating engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'view'));
+
+
+
+const server=http.createServer(app);
+app.use((req,res,next)=>{
+    console.log(req.url,req.method);
+    next();
+})
+
+
+app.use(express.urlencoded({ extended: true }))
+app.use(userRouter);
+app.use('/host', hostRouter);
+
+
+
+
+
+
+
+
+app.use((req,res,next)=>{
+    res.status(404).sendFile(path.join(__dirname, 'view', '404.html'));
+})
+
+const PORT=3000;
+server.listen(PORT,()=>{
+    console.log(`This is the server http://localhost:${PORT}`);
+})
