@@ -3,7 +3,7 @@ const hostRouter = express.Router();
 const path = require('path');
 const multer = require('multer');
 const homeController= require('../controllers/home');
-const registeredHomes = [];
+
 
 /* Multer storage */
 const storage = multer.diskStorage({
@@ -19,25 +19,6 @@ const upload = multer({ storage }); // ✅ FIX 1
 
 hostRouter.get('/add-home',homeController.getAddhome); 
 
-hostRouter.post(
-  '/success',
-  upload.array('images', 5),
-  (req, res) => {
+hostRouter.post( '/success', upload.array('images', 5), homeController.postAddhome);
 
-    const imagePaths = req.files
-      ? req.files.map(file => `/uploads/${file.filename}`)
-      : [];
-
-    registeredHomes.push({
-      houseTitle: req.body.title,
-      houseDescription: req.body.description,
-      houseLocation: req.body.location,
-      housePrice: req.body.price,
-      images: imagePaths
-    });
-
-    res.sendFile(path.join(__dirname, '../view/success.html'));
-  }
-);
-
-module.exports = { hostRouter, registeredHomes };
+exports.hostRouter = hostRouter;
