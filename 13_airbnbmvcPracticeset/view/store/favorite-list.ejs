@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %> · Airbnb</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="/" class="text-2xl font-bold text-rose-500 tracking-tight">
+        airbnb
+      </a>
+
+      <!-- Navigation -->
+      <nav class="flex items-center gap-6 text-sm font-medium">
+        <a href="/" class="text-gray-700 hover:text-black transition">Home</a>
+        <a href="/bookings" class="text-gray-700 hover:text-black transition">Bookings</a>
+        <a href="/favorite-list" class="text-black font-semibold">Favourites</a>
+
+        <span class="h-6 w-px bg-gray-300"></span>
+
+        <a href="/host/add-home"
+          class="px-4 py-2 bg-rose-500 text-white rounded-full font-semibold hover:bg-rose-600 transition shadow-sm">
+          Add your home
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-6 py-16">
+
+    <h2 class="text-4xl font-semibold text-gray-900 mb-4 text-center">
+      <%= pageTitle %>
+    </h2>
+
+    <% if (!favourites || favourites.length === 0) { %>
+
+      <!-- Empty State -->
+      <p class="text-gray-500 text-lg text-center mb-10">
+        You haven’t added any homes to your favourites yet.
+      </p>
+
+      <div class="text-center mt-10">
+        <a href="/"
+          class="inline-block px-8 py-4 bg-rose-500 text-white text-lg font-medium rounded-xl hover:bg-rose-600 transition shadow-sm">
+          Explore Homes
+        </a>
+      </div>
+
+    <% } else { %>
+
+      <!-- Favourites Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+
+        <% favourites.forEach(home => { %>
+          <div class="bg-white rounded-2xl overflow-hidden shadow hover:shadow-lg transition">
+
+            <% if (home.images && home.images.length > 0) { %>
+              <img src="/uploads/<%= home.images[0].replace('/uploads/', '') %>"
+                alt="Home Image"
+                class="h-56 w-full object-cover">
+            <% } else { %>
+              <img src="/default.jpg"
+                alt="Home Image"
+                class="h-56 w-full object-cover">
+            <% } %>
+
+            <div class="p-5">
+              <h3 class="text-lg font-semibold text-gray-900">
+                <%= home.title %>
+              </h3>
+
+              <p class="text-gray-500 mt-1">
+                <%= home.location %>
+              </p>
+
+              <p class="text-gray-900 font-medium mt-3">
+                ₹ <%= home.price %> / night
+              </p>
+
+              <div class="mt-4 flex justify-between items-center">
+                <a href="/homes/<%= home.id %>"
+                  class="text-rose-500 font-medium hover:underline">
+                  View details
+                </a>
+
+                <form action="/favorite/remove/<%= home.id %>" method="POST">
+                  <button
+                    class="text-sm text-gray-500 hover:text-red-500 transition">
+                    Remove
+                  </button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        <% }) %>
+
+      </div>
+
+    <% } %>
+
+  </main>
+
+</body>
+</html>
