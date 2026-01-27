@@ -1,5 +1,6 @@
 const path = require('path');
 const Home = require('../models/home');
+const { getFavorites, addFavorite, removeFavorite } = require('../utils/favorites');
 
 // ✅ ADD THIS FUNCTION (IMPORTANT)
 exports.getHomes = (req, res) => {
@@ -17,9 +18,11 @@ exports.getBookings = (req, res) => {
 };
 
 exports.getFavoriteList = (req, res) => {
-  const homes = Home.fetchAll();
+  const favoriteIds = getFavorites();
+  const allHomes = Home.fetchAll();
+  const favoriteHomes = allHomes.filter(home => favoriteIds.includes(home.id));
   res.render('store/favorite-list', {
-    favourites: homes,
+    favourites: favoriteHomes,
     pageTitle: 'Your Favourites'
   });
 };
@@ -76,12 +79,12 @@ exports.postReserveHome = (req, res) => {
 // Adding Favourates Functionality
 exports.postAddFavorite = (req, res) => {
   const homeId = req.params.homeId;
-  // Add to favorites logic (simplified, no session)
+  addFavorite(homeId);
   res.redirect('/favorite-list');
 };
 
 exports.postRemoveFavorite = (req, res) => {
   const homeId = req.params.homeId;
-  // Remove from favorites logic (simplified)
+  removeFavorite(homeId);
   res.redirect('/favorite-list');
 };

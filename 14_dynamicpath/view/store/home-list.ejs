@@ -106,9 +106,11 @@
             <p class="text-gray-500">Location :- <%= home.location %></p>
             <p class="text-gray-800 font-medium mt-2">Price ($):- <%= home.price %> / night</p>
           </div>
-           <a href="favorite-list" class="m-4 px-4 py-2 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition cursor-pointer inline-block">
-  Add to Favourites
-</a>
+           <form action="/favorite/<%= home.id %>" method="POST" class="inline">
+  <button type="submit" class="m-4 px-4 py-2 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition cursor-pointer inline-block">
+    Add to Favourites
+  </button>
+</form>
 
 <a href="/homes/<%= home.id %>" class="m-4 px-4 py-2 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition cursor-pointer inline-block">
   View Details
