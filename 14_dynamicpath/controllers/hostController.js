@@ -1,0 +1,34 @@
+const path = require('path');
+const Home = require('../models/home');
+
+exports.getAddhome = (req, res) => {
+  res.sendFile(path.join(__dirname, '../view/host/addHome.html'));
+};
+
+exports.postAddhome = (req, res) => {
+  const imagePaths = req.files
+    ? req.files.map(file => `/uploads/${file.filename}`)
+    : [];
+
+  const { title, description, location, price } = req.body;
+
+  const home = new Home(
+    title,
+    description,
+    location,
+    price,
+    imagePaths
+  );
+
+  home.save(); // ✅ model handles push
+
+  res.sendFile(path.join(__dirname, '../view/host/homeAdded.html'));
+};
+
+exports.getHomeList = (req, res) => {
+  const homes = Home.fetchAll();
+  res.render('host/host-home-list', {
+    registeredHomes: homes
+  });
+};
+
