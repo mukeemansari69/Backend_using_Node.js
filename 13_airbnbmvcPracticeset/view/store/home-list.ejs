@@ -85,7 +85,7 @@
            <% if (home.images && home.images.length > 0) { %>
   <% home.images.forEach(function(img, index){ %>
     <img
-      src="/uploads/<%= img %>"
+      src="<%= img %>"
       class="slide absolute inset-0 w-full h-full object-cover transition-opacity duration-500 <%= index === 0 ? 'opacity-100' : 'opacity-0' %>"
     />
   <% }) %>

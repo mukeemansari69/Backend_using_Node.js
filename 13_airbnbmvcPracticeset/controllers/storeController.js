@@ -5,7 +5,7 @@ const Home = require('../models/home');
 exports.getHomes = (req, res) => {
   const homes = Home.fetchAll(); // 👈 model se data
 
-  res.render('store/index', {
+  res.render('store/home-list', {
     registeredHomes: homes
   });
 };
