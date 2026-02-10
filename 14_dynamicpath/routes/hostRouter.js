@@ -22,6 +22,8 @@ hostRouter.get('/add-home', hostController.getAddhome);
 hostRouter.post('/success', upload.array('images', 5), hostController.postAddhome);
 
 hostRouter.get('/home-list', hostController.getHomeList);
-
+hostRouter.get('/edit-home/:id', hostController.getEditHome);
+hostRouter.post('/edit-home/:id', upload.array('images', 5), hostController.postEditHome);
+hostRouter.get('/home-detail/:id', hostController.getHomeDetail);
 
 exports.hostRouter = hostRouter;

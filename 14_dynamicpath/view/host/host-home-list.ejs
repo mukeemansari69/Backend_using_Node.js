@@ -55,13 +55,13 @@
 
           <!-- Image Slider -->
           <div class="relative h-56 overflow-hidden slider">
-           <% if (home.images && home.images.length > 0) { %>
-  <% home.images.forEach(function(img, index){ %>
-    <img
-      src="/uploads/<%= img %>"
-      class="slide absolute inset-0 w-full h-full object-cover transition-opacity duration-500 <%= index === 0 ? 'opacity-100' : 'opacity-0' %>"
-    />
-  <% }) %>
+<% if (home.images && home.images.length > 0) { %>
+<% home.images.forEach(function(img, index){ %>
+  <img
+    src="/uploads/<%= img.replace('/uploads/', '') %>"
+    class="slide absolute inset-0 w-full h-full object-cover transition-opacity duration-500 <%= index === 0 ? 'opacity-100' : 'opacity-0' %>"
+  />
+<% }) %>
 <% } else { %>
   <img
     src="https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
@@ -80,8 +80,19 @@
             <p class="text-gray-600 mb-2">Home-Description :- <%= home.description %></p>
             <p class="text-gray-500">Location :- <%= home.location %></p>
             <p class="text-gray-800 font-medium mt-2">Price ($):- <%= home.price %> / night</p>
+
+            <!-- Edit and Details Buttons -->
+            <div class="flex gap-2 mt-4">
+              <a href="/host/edit-home/<%= home.id %>"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition cursor-pointer">
+                Edit
+              </a>
+              <a href="/host/home-detail/<%= home.id %>"
+                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition cursor-pointer">
+                Details
+              </a>
+            </div>
           </div>
-           <input type="button" value="Book Now" class="m-4 px-4 py-2 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition cursor-pointer">
         </div>
       <% }); %>
     </div>

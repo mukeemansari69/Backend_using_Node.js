@@ -1,14 +1,10 @@
-# TODO List for Image Path Fixes
+# TODO List for Adding Host Home Button and Functionality
 
-## Completed Tasks
-- [x] Fixed image paths in favorite-list.ejs to handle both prefixed and non-prefixed image paths
-- [x] Fixed image paths in home-detail.ejs to handle both prefixed and non-prefixed image paths
-- [x] Fixed image paths in index.ejs to handle both prefixed and non-prefixed image paths
-
-## Summary of Changes
-- Updated image src attributes in EJS templates to use `img.replace('/uploads/', '')` to ensure consistent "/uploads/" prefix
-- This handles cases where image paths in homes.json may or may not already have the "/uploads/" prefix
-
-## Testing
-- Images should now display correctly on the home page, favorite list page, and home detail pages
-- The changes are backward compatible with existing data
+- [x] Add "Host Home" button to the header in store views (e.g., home-detail.ejs) linking to /host/home-list.
+- [x] Modify host-home-list.ejs to add "Edit" and "Details" buttons on each home card.
+- [x] Add a new route /host/home-detail/:id in hostRouter.js.
+- [x] Add getHomeDetail function in hostController.js to render host/home-detail.ejs.
+- [x] Create host/home-detail.ejs view file.
+- [x] Create host/edit-home.ejs view file with form for editing home details.
+- [x] Add postEditHome function in hostController.js to handle form submission and update home.
+- [x] Add POST route for /host/edit-home/:id in hostRouter.js.
