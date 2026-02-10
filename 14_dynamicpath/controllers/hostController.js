@@ -51,7 +51,7 @@ exports.postEditHome = (req, res) => {
     return res.status(404).render('404', { message: 'Home not found' });
   }
 
-  const imagePaths = req.files
+  const imagePaths = req.files && req.files.length > 0
     ? req.files.map(file => `/uploads/${file.filename}`)
     : home.images; // Keep existing images if no new ones uploaded
 
@@ -81,5 +81,11 @@ exports.getHomeDetail = (req, res) => {
     home: home,
     pageTitle: home.title
   });
+};
+
+exports.postDeleteHome = (req, res) => {
+  const homeId = req.params.id;
+  Home.deleteById(homeId);
+  res.redirect('/host/home-list');
 };
 

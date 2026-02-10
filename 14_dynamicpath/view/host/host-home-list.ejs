@@ -81,7 +81,7 @@
             <p class="text-gray-500">Location :- <%= home.location %></p>
             <p class="text-gray-800 font-medium mt-2">Price ($):- <%= home.price %> / night</p>
 
-            <!-- Edit and Details Buttons -->
+            <!-- Edit, Details, and Delete Buttons -->
             <div class="flex gap-2 mt-4">
               <a href="/host/edit-home/<%= home.id %>"
                 class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition cursor-pointer">
@@ -91,6 +91,13 @@
                 class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition cursor-pointer">
                 Details
               </a>
+              <form action="/host/delete-home/<%= home.id %>" method="POST" class="inline">
+                <button type="submit"
+                  class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition cursor-pointer"
+                  onclick="return confirm('Are you sure you want to delete this home?')">
+                  Delete
+                </button>
+              </form>
             </div>
           </div>
         </div>
